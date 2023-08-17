@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Calculator</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-image:url('https://th.bing.com/th/id/OIP.Sl-1I2xKwXu73aGe0N5oLQHaE8?w=260&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7');
+    background-repeat no-repeat;
+    background-size:  100% 100%;
+    padding: 40px;
+    height: 800px; 
+    
+  }
+  .calculator {
+    width: 320px;
+    padding: 30px;
+    border-radius: 20%;
+    background-color: rgb(194, 142, 214, 0.8);
+    margin: 180px auto;
+  }
+  .input-group {
+    margin-bottom: 101`px;
+  }
+  label {
+    display: block;
+    margin-bottom: 30px;
+    color: #e23c6b;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1;
+    border-radius: 10px;
+  }
+  .btn-calculate {
+    background-color: #e908ad;
+    color: #e4ebee;
+    box-shadow: 5px 5px 5px hwb(351 7% 50% / 0.933);
+    padding: 10px 16px;
+    border: 1;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .result {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #131313;
+    box-shadow: 5px 5px 5px hwb(336 25% 8% / 0.933);
+  }
+</style>
+</head>
+<body>
+    <div class="calculator">
+    <h1 style="color: #0d0e0d;"><center><b>Loan Calculator</b></center></h1>
+    <div class="input-group">
+      <label for="loan-amount"><h2><b>Loan Amount:</b></h2></label>
+      <input type="number" id="loan-amount" placeholder="Loan amount">
+    </div>
+    <div class="input-group">
+      <label for="interest-rate"><h2><b>Interest Rate (%):</b></h2></h2Interest></label>
+      <input type="number" id="interest-rate" placeholder="Interest rate">
+    </div>
+    <div class="input-group">
+      <label for="loan-term"><h2><b>Loan Term (years):</b></h2></label>
+      <input type="number" id="loan-term" placeholder="Loan term">
+    </div>
+    <button class="btn-calculate" onclick="calculateLoan()"><b>Calculate</b></button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateLoan() {
+      const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+      const interestRate = parseFloat(document.getElementById('interest-rate').value);
+      const loanTerm = parseInt(document.getElementById('loan-term').value);
+
+      const monthlyInterest = (interestRate / 100) / 12;
+      const totalPayments = loanTerm * 12;
+      
+      const monthlyPayment = (loanAmount * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -totalPayments));
+      const totalPayment = monthlyPayment * totalPayments;
+      
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `Monthly Payment: ₹${monthlyPayment.toFixed(2)}<br>Total Payment: ₹${totalPayment.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
